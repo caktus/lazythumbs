@@ -136,7 +136,7 @@ def compute_img(thing, action, geometry):
     # It's okay to end up with '' for one of the dimensions in the case of thumbnail
     try:
         width, height = geometry_parse(action, geometry, ValueError)
-    except ValueError, e:
+    except ValueError as e:
         logger.warn('got junk geometry variable resolution: %s' % e)
         return exit(url, source_width(img_object), source_height(img_object))
 

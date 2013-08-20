@@ -74,7 +74,7 @@ class LazyThumbRenderer(View):
 
         try:
             width, height = geometry_parse(action, geometry, ValueError)
-        except ValueError, e:
+        except ValueError as e:
             logger.info('corrupted geometry "%s" for action "%s"' % (geometry, action))
             return self.four_oh_four()
 
@@ -131,14 +131,14 @@ class LazyThumbRenderer(View):
                 buf.close()
                 try:
                     self.fs.save(rendered_path, ContentFile(raw_data))
-                except OSError, e:
+                except OSError as e:
                     if e.errno == errno.EEXIST:
                         pass # race condition, another WSGI worker wrote file or directory first
                     else:
                         logger.exception("saving converted image")
                         raise
 
-            except (IOError, SuspiciousOperation, ValueError), e:
+            except (IOError, SuspiciousOperation, ValueError) as e:
                 # we've now failed to find a rendered path as well as the
                 # original source path. this is a 404.
                 logger.info('404: %s' % e)
