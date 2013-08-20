@@ -1,4 +1,4 @@
-from cStringIO import StringIO
+from six.moves import StringIO
 from hashlib import md5
 import errno
 import logging

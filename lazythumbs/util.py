@@ -1,9 +1,13 @@
 import logging
 import os
 import re
+import six
 from functools import partial
 from itertools import chain
-from urlparse import urljoin, urlparse
+try:
+    from urllib.parse import urljoin, urlparse
+except ImportError:
+    from urlparse import urljoin, urlparse
 
 from PIL import Image
 from django.conf import settings
@@ -242,7 +246,7 @@ def get_source_img_attrs(thing):
 
 def _get_url_img_obj_from_thing(thing):
     img_object = None
-    if isinstance(thing, basestring):
+    if isinstance(thing, six.string_types):
         url = thing
     else:
         img_object = thing
