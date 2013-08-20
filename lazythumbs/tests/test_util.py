@@ -7,7 +7,7 @@ from lazythumbs.util import geometry_parse, build_geometry, compute_img, get_img
 from lazythumbs.util import get_format, get_attr_string, get_placeholder_url, LT_IMG_URL_FORMAT
 
 class TestGeometry(TestCase):
-    class TestException:
+    class TestException(BaseException):
         pass
 
     def test_invalid_resize(self):
