@@ -32,3 +32,4 @@ ADMIN_MEDIA_PREFIX = '/media/'
 TEMPLATE_LOADERS = ()
 TEMPLATE_DIRS = ( os.path.join(PROJECT_ROOT, 'templates'),)
 MIDDLEWARE_CLASSES = ()
+SECRET_KEY='verysecret'
