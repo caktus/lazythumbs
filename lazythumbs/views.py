@@ -1,5 +1,5 @@
-from six.moves import StringIO
 from hashlib import md5
+from io import BytesIO
 import errno
 import logging
 import os
@@ -108,7 +108,7 @@ class LazyThumbRenderer(View):
                     img_path=source_path
                 )
                 # this code from sorl-thumbnail
-                buf = StringIO()
+                buf = BytesIO()
                 # TODO we need a better way of choosing options based on size and format
                 params = {
                     'format': get_format(rendered_path),
