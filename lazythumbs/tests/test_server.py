@@ -1,3 +1,4 @@
+from __future__ import unicode_literals
 import os
 import shutil
 import tempfile
@@ -184,7 +185,7 @@ class GetViewTest(TestCase):
         self.assertEqual(resp.status_code, 200)
         self.assertEqual(resp['Content-Type'], 'image/jpeg')
         self.assertTrue('Cache-Control' in resp)
-        self.assertEqual(resp.content, '') # empty buffer means raw_data is ''
+        self.assertEqual(resp.content, b'') # empty buffer means raw_data is ''
         self.assertEqual(len(mc.cache.keys()), 1)
 
         key = list(mc.cache.keys())[0]
