@@ -305,7 +305,8 @@ class LazyThumbRenderer(View):
         :param width: integer width in pixels
         :param height: integer height in pixels
         """
-        hashed = md5('%s:%s:%s:%s' % (img_path, action, width, height))
+        image_operation = '%s:%s:%s:%s' % (img_path, action, width, height)
+        hashed = md5(image_operation.encode('utf-8'))
         return hashed.hexdigest()
 
     def two_hundred(self, img_data, img_format):

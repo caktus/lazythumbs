@@ -165,7 +165,7 @@ class GetViewTest(TestCase):
         self.assertEqual(resp['Content-Type'], 'image/jpeg')
         self.assertTrue('Cache-Control' in resp)
         self.assertEqual(len(mc.cache.keys()), 1)
-        key = mc.cache.keys()[0]
+        key = list(mc.cache.keys())[0]
         cached = mc.cache[key]
         self.assertEqual(cached, 1)
 
@@ -187,7 +187,7 @@ class GetViewTest(TestCase):
         self.assertEqual(resp.content, '') # empty buffer means raw_data is ''
         self.assertEqual(len(mc.cache.keys()), 1)
 
-        key = mc.cache.keys()[0]
+        key = list(mc.cache.keys())[0]
         cached = mc.cache[key]
         self.assertEqual(cached, False)
 

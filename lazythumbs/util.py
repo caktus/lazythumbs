@@ -95,8 +95,8 @@ def quack(thing, properties, levels=[], default=None):
     """
     if thing is None:
         return default
-    to_search = [thing] + filter(None, [getattr(thing, l, None) for l in levels])
-    first = lambda f, xs, d: (chain((x for x in xs if f(x)), [d])).next()
+    to_search = [thing] + [_f for _f in [getattr(thing, l, None) for l in levels] if _f]
+    first = lambda f, xs, d: next((chain((x for x in xs if f(x)), [d])))
 
     for t in to_search:
         prop = first(partial(hasattr, t), properties, default)
@@ -234,7 +234,7 @@ def get_format(file_path):
 
 def get_attr_string(img):
     """ given an image attr dict like that returned by compute_img or get_img_attrs get the string of height width attrs for an img tag """
-    attrs = ['%s="%s"' % attr for attr in img.items() if attr[1]]
+    attrs = ['%s="%s"' % attr for attr in list(img.items()) if attr[1]]
     return " ".join(attrs)
 
 
