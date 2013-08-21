@@ -181,8 +181,8 @@ class LazyThumbRenderer(View):
         if img.size == (width, height):
             return img
 
-        left = (img.size[0] - width) / 2
-        top = (img.size[1] - height) / 2
+        left = int((img.size[0] - width) / 2)
+        top = int((img.size[1] - height) / 2)
         right = left + width
         bottom = top + height
 
