@@ -206,7 +206,7 @@ class LazyThumbRenderer(View):
 
         new_img = Image.new('RGB', (width, height), MATTE_BACKGROUND_COLOR)
         img.thumbnail((width, height), Image.ANTIALIAS)
-        pos = ((width - img.size[0]) / 2, (height - img.size[1]) / 2)
+        pos = (int((width - img.size[0]) / 2), int((height - img.size[1]) / 2))
         new_img.paste(img, pos)
 
         return new_img
