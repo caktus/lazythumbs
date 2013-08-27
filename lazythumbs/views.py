@@ -171,9 +171,25 @@ class LazyThumbRenderer(View):
         if width >= source_width and height >= source_height:
             return img
 
+        if height >= source_height:
+            scale = float(height / source_height)
+            theight = height
+            twidth = None
+        elif width >= source_width:
+            scale = float(width / source_width)
+            twidth = width
+            theight = None
+        else:
+            twidth = width if source_width > source_height else None
+            theight = height if source_height >= source_width else None
+            scale = 0
+
+        if scale:
+            img = img.resize((int(source_width * scale), int(source_height * scale)))
+
         img = self.thumbnail(
-            width = width if source_width < source_height else None,
-            height = height if source_height <= source_width else None,
+            width = twidth,
+            height = theight,
             img = img
         )
 
@@ -181,8 +197,8 @@ class LazyThumbRenderer(View):
         if img.size == (width, height):
             return img
 
-        left = int((img.size[0] - width) / 2)
-        top = int((img.size[1] - height) / 2)
+        left = max(0, int((img.size[0] - width) / 2))
+        top = max(0, int((img.size[1] - height) / 2))
         right = left + width
         bottom = top + height
 
