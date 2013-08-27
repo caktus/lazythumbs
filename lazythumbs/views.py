@@ -170,13 +170,18 @@ class LazyThumbRenderer(View):
 
         scale_by = None
         if width >= source_width and height >= source_height:
-            # pre-scale along the greatest dimension difference
-            if abs(width - source_width) > abs(height - source_height):
+            # pret scale along the greatest dimension difference
+            if float(width) / source_width > float(height) / source_height:
+                scale_by = 'width'
+            else:
+                scale_by = 'height'
+        elif width < source_width and height < source_height:
+            if float(width) / source_width > float(height) / source_height:
                 scale_by = 'width'
             else:
                 scale_by = 'height'
 
-        if height >= source_height:
+        elif height >= source_height:
             scale_by = 'height'
         elif width >= source_width:
             scale_by = 'width'
