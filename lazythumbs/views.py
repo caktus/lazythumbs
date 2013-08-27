@@ -168,14 +168,24 @@ class LazyThumbRenderer(View):
         source_width = img.size[0]
         source_height = img.size[1]
 
+        scale_by = None
         if width >= source_width and height >= source_height:
-            return img
+            # pre-scale along the greatest dimension difference
+            if abs(width - source_width) > abs(height - source_height):
+                scale_by = 'width'
+            else:
+                scale_by = 'height'
 
         if height >= source_height:
+            scale_by = 'height'
+        elif width >= source_width:
+            scale_by = 'width'
+
+        if scale_by == 'height':
             scale = float(height / source_height)
             theight = height
             twidth = None
-        elif width >= source_width:
+        elif scale_by == 'width':
             scale = float(width / source_width)
             twidth = width
             theight = None
@@ -184,8 +194,21 @@ class LazyThumbRenderer(View):
             theight = height if source_height >= source_width else None
             scale = 0
 
+
         if scale:
-            img = img.resize((int(source_width * scale), int(source_height * scale)))
+            scale_width = int(source_width * scale)
+            scale_height = int(source_height * scale)
+            if scale_width > source_width and scale_height > source_height:
+                # cap the scaling, but retain the ratio
+                if scale_by == 'height':
+                    width = int( width * source_height / float(scale_height) )
+                    scale_width *= source_height / float(scale_height)
+                    height = scale_height = source_height
+                if scale_by == 'width':
+                    height = int( height * source_width / float(scale_width) )
+                    scale_height *= source_width / float(scale_width)
+                    width = scale_width = source_width
+            img = img.resize((int(scale_width), int(scale_height)))
 
         img = self.thumbnail(
             width = twidth,
