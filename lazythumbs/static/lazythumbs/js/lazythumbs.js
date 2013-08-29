@@ -1,5 +1,6 @@
 var lazythumbs = {
     FETCH_STEP_MIN: 50
+,   RATIO_THRESHOLD_RELOAD: 0.1
 };
 (function(lazythumbs){
 
@@ -68,7 +69,7 @@ var lazythumbs = {
                 }
 
                 // Load new images when changing ratio
-                if (Math.abs(old_ratio - new_ratio) > 0.1 && data(img, 'action') != 'resize') {
+                if (Math.abs(old_ratio - new_ratio) > lazythumbs.RATIO_THRESHOLD_RELOAD) {
                     needs_loaded = true;
                 }
             }
