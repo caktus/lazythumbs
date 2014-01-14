@@ -57,7 +57,7 @@ var lazythumbs = {
             width = roundedsize.width;
             height = roundedsize.height;
 
-            if (e.type !== 'load') {
+            if (!e || e.type !== 'load') {
                 width = Math.min(width, data(img, 'ltmaxwidth'));
                 height = Math.min(height, data(img, 'ltmaxheight'));
                 wdelta = width - data(img, 'ltwidth');
