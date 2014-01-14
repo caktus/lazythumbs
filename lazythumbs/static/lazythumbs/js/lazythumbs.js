@@ -159,5 +159,6 @@ var lazythumbs = {
     lazythumbs.scale_size = scale_size;
     lazythumbs.scale_from_step = scale_from_step;
     lazythumbs.round_size_up = round_size_up;
+    lazythumbs.update = update_responsive_images;
 
 })(lazythumbs);
